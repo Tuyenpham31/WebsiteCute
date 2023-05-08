@@ -1,0 +1,25 @@
+﻿#home-main-slider1 .owl-slide {
+    position: relative;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+}
+
+    #home-main-slider1 .owl-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+#home-main-slider1 .owl-slide1 {
+    background-image: url("path/to/image1.jpg");
+}
+
+#home-main-slider1 .owl-slide2 {
+    background-image: url("path/to/image2.jpg");
+}
+
+#home-main-slider1 .owl-slide3 {
+    background-image: url("path/to/image3.jpg");
+}
