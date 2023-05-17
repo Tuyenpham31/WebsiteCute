@@ -30,15 +30,6 @@
       <Association Name="CHUCNANG_QUYEN_PHANQUYEN" Member="PHANQUYENs" ThisKey="MACHUCNANG" OtherKey="MACHUCNANG" Type="PHANQUYEN" />
     </Type>
   </Table>
-  <Table Name="dbo.GIAMGIA" Member="GIAMGIAs">
-    <Type Name="GIAMGIA">
-      <Column Name="MAGIAMGIA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="MASP" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="PHAMTRAMGIAM" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ANHIEN" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="SANPHAM_GIAMGIA" Member="SANPHAM" ThisKey="MASP" OtherKey="MASP" Type="SANPHAM" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.HINH" Member="HINHs">
     <Type Name="HINH">
       <Column Name="MAHINH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -104,7 +95,6 @@
       <Column Name="MOTA" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="THANHTOANON" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Column Name="ANHIEN" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="SANPHAM_GIAMGIA" Member="GIAMGIAs" ThisKey="MASP" OtherKey="MASP" Type="GIAMGIA" />
       <Association Name="SANPHAM_HINH" Member="HINHs" ThisKey="MASP" OtherKey="MASP" Type="HINH" />
       <Association Name="SANPHAM_KICHTHUOC" Member="KICHTHUOCs" ThisKey="MASP" OtherKey="MASP" Type="KICHTHUOC" />
       <Association Name="SANPHAM_PHIEUNHAPKHO" Member="PHIEUNHAPKHOs" ThisKey="MASP" OtherKey="MASP" Type="PHIEUNHAPKHO" />

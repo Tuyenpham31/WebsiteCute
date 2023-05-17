@@ -14,13 +14,17 @@ namespace WebsiteThuCungCute.Models
             MD5 md5 = new MD5CryptoServiceProvider();
             byte[] mahoamd5;
             UTF8Encoding encode = new UTF8Encoding();
-            mahoamd5 = md5.ComputeHash(encode.GetBytes(password));
-            StringBuilder data = new StringBuilder();
-            for (int i = 0; i < mahoamd5.Length; i++)
+            if (!String.IsNullOrEmpty(password))
             {
-                data.Append(mahoamd5[i].ToString("x2"));
+                mahoamd5 = md5.ComputeHash(encode.GetBytes(password));
+                StringBuilder data = new StringBuilder();
+                for (int i = 0; i < mahoamd5.Length; i++)
+                {
+                    data.Append(mahoamd5[i].ToString("x2"));
+                }
+                return data.ToString();
             }
-            return data.ToString();
+            return null;
         }
     }
 }

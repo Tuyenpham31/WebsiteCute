@@ -14,7 +14,7 @@ namespace WebsiteThuCungCute.Models
 
         [Display(Name = "Mật khẩu:")]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Độ dài mật khẩu ít nhất 6 - 20 ký tự. ")]
-        [Required(ErrorMessage = "Mật khẩu không được để trống. ")]
+        [Required(ErrorMessage = " Mật khẩu không được để trống. ")]
         public string matkhau { set; get; }
     }
 }

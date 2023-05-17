@@ -39,9 +39,6 @@ namespace WebsiteThuCungCute.Models
     partial void InsertCHUCNANG_QUYEN(CHUCNANG_QUYEN instance);
     partial void UpdateCHUCNANG_QUYEN(CHUCNANG_QUYEN instance);
     partial void DeleteCHUCNANG_QUYEN(CHUCNANG_QUYEN instance);
-    partial void InsertGIAMGIA(GIAMGIA instance);
-    partial void UpdateGIAMGIA(GIAMGIA instance);
-    partial void DeleteGIAMGIA(GIAMGIA instance);
     partial void InsertHINH(HINH instance);
     partial void UpdateHINH(HINH instance);
     partial void DeleteHINH(HINH instance);
@@ -125,14 +122,6 @@ namespace WebsiteThuCungCute.Models
 			get
 			{
 				return this.GetTable<CHUCNANG_QUYEN>();
-			}
-		}
-		
-		public System.Data.Linq.Table<GIAMGIA> GIAMGIAs
-		{
-			get
-			{
-				return this.GetTable<GIAMGIA>();
 			}
 		}
 		
@@ -772,181 +761,6 @@ namespace WebsiteThuCungCute.Models
 		{
 			this.SendPropertyChanging();
 			entity.CHUCNANG_QUYEN = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GIAMGIA")]
-	public partial class GIAMGIA : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MAGIAMGIA;
-		
-		private int _MASP;
-		
-		private int _PHAMTRAMGIAM;
-		
-		private System.Nullable<bool> _ANHIEN;
-		
-		private EntityRef<SANPHAM> _SANPHAM;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMAGIAMGIAChanging(int value);
-    partial void OnMAGIAMGIAChanged();
-    partial void OnMASPChanging(int value);
-    partial void OnMASPChanged();
-    partial void OnPHAMTRAMGIAMChanging(int value);
-    partial void OnPHAMTRAMGIAMChanged();
-    partial void OnANHIENChanging(System.Nullable<bool> value);
-    partial void OnANHIENChanged();
-    #endregion
-		
-		public GIAMGIA()
-		{
-			this._SANPHAM = default(EntityRef<SANPHAM>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MAGIAMGIA", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int MAGIAMGIA
-		{
-			get
-			{
-				return this._MAGIAMGIA;
-			}
-			set
-			{
-				if ((this._MAGIAMGIA != value))
-				{
-					this.OnMAGIAMGIAChanging(value);
-					this.SendPropertyChanging();
-					this._MAGIAMGIA = value;
-					this.SendPropertyChanged("MAGIAMGIA");
-					this.OnMAGIAMGIAChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MASP", DbType="Int NOT NULL")]
-		public int MASP
-		{
-			get
-			{
-				return this._MASP;
-			}
-			set
-			{
-				if ((this._MASP != value))
-				{
-					if (this._SANPHAM.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMASPChanging(value);
-					this.SendPropertyChanging();
-					this._MASP = value;
-					this.SendPropertyChanged("MASP");
-					this.OnMASPChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PHAMTRAMGIAM", DbType="Int NOT NULL")]
-		public int PHAMTRAMGIAM
-		{
-			get
-			{
-				return this._PHAMTRAMGIAM;
-			}
-			set
-			{
-				if ((this._PHAMTRAMGIAM != value))
-				{
-					this.OnPHAMTRAMGIAMChanging(value);
-					this.SendPropertyChanging();
-					this._PHAMTRAMGIAM = value;
-					this.SendPropertyChanged("PHAMTRAMGIAM");
-					this.OnPHAMTRAMGIAMChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ANHIEN", DbType="Bit")]
-		public System.Nullable<bool> ANHIEN
-		{
-			get
-			{
-				return this._ANHIEN;
-			}
-			set
-			{
-				if ((this._ANHIEN != value))
-				{
-					this.OnANHIENChanging(value);
-					this.SendPropertyChanging();
-					this._ANHIEN = value;
-					this.SendPropertyChanged("ANHIEN");
-					this.OnANHIENChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_GIAMGIA", Storage="_SANPHAM", ThisKey="MASP", OtherKey="MASP", IsForeignKey=true)]
-		public SANPHAM SANPHAM
-		{
-			get
-			{
-				return this._SANPHAM.Entity;
-			}
-			set
-			{
-				SANPHAM previousValue = this._SANPHAM.Entity;
-				if (((previousValue != value) 
-							|| (this._SANPHAM.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SANPHAM.Entity = null;
-						previousValue.GIAMGIAs.Remove(this);
-					}
-					this._SANPHAM.Entity = value;
-					if ((value != null))
-					{
-						value.GIAMGIAs.Add(this);
-						this._MASP = value.MASP;
-					}
-					else
-					{
-						this._MASP = default(int);
-					}
-					this.SendPropertyChanged("SANPHAM");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -1949,8 +1763,6 @@ namespace WebsiteThuCungCute.Models
 		
 		private System.Nullable<bool> _ANHIEN;
 		
-		private EntitySet<GIAMGIA> _GIAMGIAs;
-		
 		private EntitySet<HINH> _HINHs;
 		
 		private EntitySet<KICHTHUOC> _KICHTHUOCs;
@@ -1997,7 +1809,6 @@ namespace WebsiteThuCungCute.Models
 		
 		public SANPHAM()
 		{
-			this._GIAMGIAs = new EntitySet<GIAMGIA>(new Action<GIAMGIA>(this.attach_GIAMGIAs), new Action<GIAMGIA>(this.detach_GIAMGIAs));
 			this._HINHs = new EntitySet<HINH>(new Action<HINH>(this.attach_HINHs), new Action<HINH>(this.detach_HINHs));
 			this._KICHTHUOCs = new EntitySet<KICHTHUOC>(new Action<KICHTHUOC>(this.attach_KICHTHUOCs), new Action<KICHTHUOC>(this.detach_KICHTHUOCs));
 			this._PHIEUNHAPKHOs = new EntitySet<PHIEUNHAPKHO>(new Action<PHIEUNHAPKHO>(this.attach_PHIEUNHAPKHOs), new Action<PHIEUNHAPKHO>(this.detach_PHIEUNHAPKHOs));
@@ -2260,19 +2071,6 @@ namespace WebsiteThuCungCute.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_GIAMGIA", Storage="_GIAMGIAs", ThisKey="MASP", OtherKey="MASP")]
-		public EntitySet<GIAMGIA> GIAMGIAs
-		{
-			get
-			{
-				return this._GIAMGIAs;
-			}
-			set
-			{
-				this._GIAMGIAs.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_HINH", Storage="_HINHs", ThisKey="MASP", OtherKey="MASP")]
 		public EntitySet<HINH> HINHs
 		{
@@ -2445,18 +2243,6 @@ namespace WebsiteThuCungCute.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_GIAMGIAs(GIAMGIA entity)
-		{
-			this.SendPropertyChanging();
-			entity.SANPHAM = this;
-		}
-		
-		private void detach_GIAMGIAs(GIAMGIA entity)
-		{
-			this.SendPropertyChanging();
-			entity.SANPHAM = null;
 		}
 		
 		private void attach_HINHs(HINH entity)

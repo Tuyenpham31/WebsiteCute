@@ -1,7 +1,130 @@
-﻿@model WebsiteThuCungCute.Models.KHACHHANG
+﻿@model WebsiteThuCungCute.Models.DONDATHANG
+@using System.Globalization;
 
 @{
     ViewBag.Title = "Lịch sử đơn hàng - CutePets";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+    CultureInfo culture = new CultureInfo("vi-VN");
 }
+
+<div class="col-md-12 mt-4 text-center">
+    <h2><b>Danh Sách Đơn Hàng</b></h2>
+</div>
+<div class="col-md-10 mx-auto">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th width="10%">Mã đơn hàng</th>
+                <th width="20%">Ngày đặt</th>
+                <th width="20%">Thời gian</th>
+                <th width="10%">Đã thanh toán</th>
+                <th width="30%">Tổng tiền</th>
+                <th width="10%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dh in @ViewBag.listDonHang)
+            {
+                var date = dh.NGAYDAT.ToString("dd/MM/yyyy");
+                var time = dh.NGAYDAT.ToString("HH:mm:ss");
+
+                <tr>
+                    <td>@dh.MADH</td>
+                    <td>@date</td>
+                    <td>@time</td>
+                    @if (@dh.DATHANHTOAN)
+                    {
+                        <td><input class="form-check-input" type="checkbox" value="" checked disabled></td>
+                    }
+                    else
+                    {
+                        <td><input class="form-check-input" type="checkbox" value=""></td>
+                    }
+                    <td>@String.Format("{0:#,##0 đ}", dh.TONGTIEN)</td>
+                    <td width="10%">
+                        <a id="btnDetail" type="button" href="#" data-toggle="modal" data-target="#exampleModalLong"
+                           style="font-size: 13px; color:#ca3636">Xem chi tiết</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Chi tiết đơn hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            @*<th>Hình ảnh</th>*@
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-sanpham">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="background-color:#ca3636">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#brands-slider").css("border", "none");
+        $(".table thead tr th").attr("class", "text-center");
+        $(".table tbody tr td").attr("class", "text-center");
+
+        $(document).on("click", "#btnDetail", function () {
+            var row = $(this).closest("tr");
+            var maDH = row.find("td:first-child").text();
+            //
+            GetlistSanPham(maDH);
+        })
+
+        function GetlistSanPham(paraMaDH) {
+            $.ajax({
+                url: "https://localhost:44335/User/ChiTietDonHang/" + paraMaDH,
+                type: 'GET',
+                contentType: "application/json; charset=utf-8",
+                async: true,
+                success: function (res) {
+                    console.log(res);
+                    showProductModal(res.data);
+                },
+                error: function (error) {
+                    console.log(error.responseText);
+                }
+            });
+        }
+
+        function showProductModal(paraListSanPham) {
+            var vHtml = "";
+
+            for (var i = 0; i < paraListSanPham.length; i++) {
+                var sp = paraListSanPham[i];
+
+                vHtml += `<tr>
+                            <td>` + sp.TENSP + `</td>
+                            <td>` + sp.DONGIABAN + `</td>
+                            <td>` + sp.SOLUONG + `</td>
+                          </tr>`;
+            }
+            $("#tbody-sanpham").html(vHtml);
+        }
+    })
+</script>
 

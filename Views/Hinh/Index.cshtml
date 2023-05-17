@@ -1,6 +1,7 @@
 ﻿
 @using WebsiteThuCungCute.Models
 @using PagedList.Mvc;
+@using PagedList;
 @model PagedList.PagedList<WebsiteThuCungCute.Models.HINH>
 
 @{
@@ -44,5 +45,36 @@
 <div>
     Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
 </div>
-<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
+@*<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>*@
+<div align="center">
+    @Html.PagedListPager(Model, page =>
+        Url.Action("Index", new { page = page }),
+        new PagedListRenderOptions { DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded, MaximumPageNumbersToDisplay = 3, DisplayEllipsesWhenNotShowingAllPageNumbers = true }
+    )
+</div>
 <link href="~/Content/phantrang.css" rel="stylesheet" />
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+    }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+            .pagination li a {
+                display: inline-block;
+                padding: 5px 10px;
+                border: 1px solid #ccc;
+                text-decoration: none;
+                color: #333;
+            }
+
+            .pagination li.active a {
+                background-color: #333;
+                color: #fff;
+            }
+</style>

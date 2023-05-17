@@ -230,18 +230,16 @@ namespace WebsiteThuCungCute.Controllers
         [HttpPost]
         public ActionResult dangky(DangKyModel model)
         {
+            if (kiemtratendn(model.tendn))
+            {
+                ModelState.AddModelError("", "");
+            }
+            else if (kiemtraemail(model.email))
+            {
+                ModelState.AddModelError("", "");
+            }
             if (ModelState.IsValid)
             {
-                if (kiemtratendn(model.tendn))
-                {
-                    ModelState.AddModelError("", "Tên đăng nhập đã tồn tại");
-                }
-                else if (kiemtraemail(model.email))
-                {
-                    ModelState.AddModelError("", "Email đã tồn tại");
-                }
-                else
-                {
                     var mahoa_matkhau = MahoaMD5.GetMD5(model.matkhau);
                     var kh = new KHACHHANG();
                     kh.HOTENKH = model.hoten;
@@ -255,7 +253,7 @@ namespace WebsiteThuCungCute.Controllers
                     data.KHACHHANGs.InsertOnSubmit(kh);
                     data.SubmitChanges();
                     return RedirectToAction("dangnhap");
-                }
+                
             }
 
             return View(model);
@@ -565,10 +563,10 @@ namespace WebsiteThuCungCute.Controllers
         {
             KHACHHANG kh = new KHACHHANG();
             var fromEmail = new MailAddress("tuyenpham3108nd@gmail.com");
-            var toEmail = new MailAddress(kh.EMAIL);
+            var toEmail = new MailAddress(Email);
             var fromEmailPassword = "vrmiyndnpsxkuupn"; // replace with actual password
             string subject = Subject;
-            string body = "<br/> Họ tên: " + Name + "<br/><br/> Email: " + " " + Email + "<br/><br/> Nội dung: " + Content;
+            string body = "<br/> Chào: " + Name + "<br/><br/> cảm ơn bạn đã để lại email: " + " " + Email + "<br/><br/> để chúng tôi có thể liên lạc với bạn cùng với nội dung của bạn: " + Content;
 
             var smtp = new SmtpClient
             {
@@ -617,9 +615,51 @@ namespace WebsiteThuCungCute.Controllers
             return View();
         }
 
-        public ActionResult OrderHistory()
+        public ActionResult OrderHistory(int id)
         {
-            return View();        
+            //lấy ra danh sách đơn hàng của khách hàng có mã khách hàng là id
+            var donHang = data.DONDATHANGs.Where(dh => dh.MAKH == id).ToList();
+            ViewBag.listDonHang = donHang;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ChiTietDonHang(int id)
+        {
+            var listSanPham = new List<ProductViewModel>();
+            var ctDonHang = data.CTDONDATHANGs.Where(ct => ct.MADH == id).ToList();
+
+            foreach (var item in ctDonHang)
+            {
+                var sanPham = from a in data.SANPHAMs
+                              join b in data.THUONGHIEUs on a.MATH equals b.MATH
+                              join c in data.LOAIs on a.MALOAI equals c.MALOAI
+                              join d in data.MAUSACs on a.MAMAUSAC equals d.MAMAUSAC
+                              join h in data.HINHs on a.MASP equals h.MASP
+                              join ct in data.CTDONDATHANGs on a.MASP equals ct.MASP
+                              where a.MASP == item.MASP
+                              select new ProductViewModel
+                              {
+                                  MASP = a.MASP,
+                                  TENSP = a.TENSP,
+                                  DONGIABAN = a.DONGIABAN,
+                                  HINHANH = a.HINHANH,
+                                  MATH = a.MATH,
+                                  MALOAI = a.MALOAI,
+                                  TENTH = b.TENTH,
+                                  TENLOAI = c.TENLOAI,
+                                  SOLUONG = ct.SOLUONG,
+                                  MOTA = a.MOTA,
+                                  TENMAUSAC = d.TENMAUSAC,
+                                  HINH1 = h.HINH1,
+                                  THANHTOANON = a.THANHTOANON
+                              };
+                listSanPham.Add(sanPham.FirstOrDefault());
+            };
+
+            ViewBag.listSanPham = listSanPham;
+
+            return Json(new { data = listSanPham }, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -9,7 +9,7 @@ namespace WebsiteThuCungCute.Models
     public class DangKyModel
     {
         [Display(Name = "Tên đăng nhập:")]
-        [Required(ErrorMessage = " Tên đang nhập không được để trống. ")]
+        [Required(ErrorMessage = " Tên đăng nhập không được để trống. ")]
         public string tendn { set; get; }
         [Display(Name = "Mật khẩu:")]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Độ dài mật khẩu ít nhất 6 - 20 ký tự. ")]
@@ -18,7 +18,7 @@ namespace WebsiteThuCungCute.Models
 
         [Display(Name = "Xác nhận mật khẩu:")]
         [Compare("matkhau", ErrorMessage = " Xác nhận mật khẩu không đúng. ")]
-        [Required(ErrorMessage = " mật khẩu không được để trống. ")]
+        [Required(ErrorMessage = " Mật khẩu không được để trống. ")]
         public string xacnhanmatkhau { set; get; }
 
         [Display(Name = "Họ và tên: ")]
@@ -27,7 +27,7 @@ namespace WebsiteThuCungCute.Models
         public string hoten { set; get; }
 
         [Display(Name = "Số điện thoại:")]
-        [StringLength(11, MinimumLength = 9, ErrorMessage = "Số điện thoại không hợp lệ")]
+        [StringLength(11, MinimumLength = 10, ErrorMessage = "Số điện thoại không hợp lệ")]
         [Required(ErrorMessage = " Số điện thoại không được để trống. ")]
         public string dienthoai { set; get; }
 
@@ -39,6 +39,7 @@ namespace WebsiteThuCungCute.Models
         public string hinhanh { set; get; }
 
         [Display(Name = "Ngày sinh:")]
+        [Required(ErrorMessage = " Ngày sinh không được để trống. ")]
         //[KTDinhdangngay(ErrorMessage = " Ngày sinh không hợp lệ!. ")]
         public DateTime ngaysinh { set; get; }
 

@@ -151,6 +151,9 @@
     </Compile>
     <Compile Include="Models\DangKyModel.cs" />
     <Compile Include="Models\DangNhapModel.cs" />
+    <Compile Include="Models\DataClasses.cs">
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

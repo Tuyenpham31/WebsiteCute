@@ -76,7 +76,7 @@
                                             <div class="form-group">
                                                 <label>Tên đăng nhập:</label>
                                                 <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.TENDNKH, new { htmlAttributes = new { @class = "form-control input-full" }, @Required = "required" })
+                                                    @Html.TextBoxFor(model => model.TENDNKH, new { @class = "form-control input-full", @readonly = "readonly" })
                                                     @Html.ValidationMessageFor(model => model.TENDNKH, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>                          

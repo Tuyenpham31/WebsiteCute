@@ -1,5 +1,5 @@
 ﻿@model WebsiteThuCungCute.Models.DangKyModel
-
+@using System.Web.Mvc.Html
 @{
     ViewBag.Title = "Đăng Ký - CutePets";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -8,35 +8,34 @@
 <script language="javascript" src="~/Scripts/dangkyform.js"></script>
 
 <!-- Trở lại đầu trang-->
-
 @*<section id="breadcrumb-wrapper3" class="breadcrumb-w-img">
-    <div class="breadcrumb-overlay"></div>
-    <div class="breadcrumb-content">
-        <div class="wrapper">
-            <div class="inner text-center">
-                <div class="breadcrumb-big">
+        <div class="breadcrumb-overlay"></div>
+        <div class="breadcrumb-content">
+            <div class="wrapper">
+                <div class="inner text-center">
+                    <div class="breadcrumb-big">
 
-                    <h2>
-                        TẠO TÀI KHOẢN
-                    </h2>
+                        <h2>
+                            TẠO TÀI KHOẢN
+                        </h2>
 
-                </div>
-                <div class="breadcrumb-small">
-                    <a href="@Url.Action("index","User")" title="Quay trở về trang chủ">Trang chủ</a>
-
-
-
-                    <span aria-hidden="true">/</span>
-
-                    <span>TẠO TÀI KHOẢN</span>
+                    </div>
+                    <div class="breadcrumb-small">
+                        <a href="@Url.Action("index","User")" title="Quay trở về trang chủ">Trang chủ</a>
 
 
 
+                        <span aria-hidden="true">/</span>
+
+                        <span>TẠO TÀI KHOẢN</span>
+
+
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>*@
+    </section>*@
 
 <div id="PageContainer" class="is-moved-by-drawer" style="border-color:dimgray">
     <main class="main-content" role="main">
@@ -54,9 +53,9 @@
 
                                         <div class="form-horizontal">
                                             <div class="form-group">
-                                                <div style="color:red;font-size:small;text-align:initial">
+                                                @*<div style="color:red;font-size:small;text-align:initial">
                                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                                </div>
+                                                </div>*@
                                                 @if (@ViewBag.Success != null)
                                                 {
                                                     <div class="alert alert-success">@ViewBag.Success = "Đăng ký thành công";</div>
@@ -64,19 +63,24 @@
                                             </div>
                                             <div class="form-group" style="text-align:left;">
 
-                                                @Html.LabelFor(model => model.tendn, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.tendn, htmlAttributes: new { @class = "control-label col-md-6" })
+                                                @*<div style="color:red;font-size:small;text-align:initial">
+            @Html.ValidationMessageFor(model => model.tendn, "", new { @class = "text-danger" })
+        </div>*@
                                                 <div style="color:red;font-size:small;text-align:initial">
-                                                    @Html.ValidationMessageFor(model => model.tendn, "", new { @class = "text-danger" })
+                                                    @Html.ValidationSummary(true, "Tên đăng nhập đã tồn tại", new { @class = "text-danger" })
                                                 </div>
                                                 <div class="col-md-10">
-
+                                                    @*<div class="error-message" style="color:red;font-size:small;text-align:initial">
+                @Html.ValidationMessage("")
+            </div>*@
                                                     <input class="input-full" data-val="true" data-val-required=" Tên đăng nhập không được để trống. " htmlattributes="{ class = form-control }" id="tendn" name="tendn" type="text" value="" placeholder="Nhập tên đăng nhập">
 
                                                 </div>
                                             </div>
 
                                             <div class="form-group input-full" style="text-align:left">
-                                                @Html.LabelFor(model => model.matkhau, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.matkhau, htmlAttributes: new { @class = "control-label col-md-6" })
                                                 <div style="color:red;font-size:small;text-align:initial">
                                                     @Html.ValidationMessageFor(model => model.matkhau, "", new { @class = "text-danger" })
                                                 </div>
@@ -89,7 +93,7 @@
                                             </div>
 
                                             <div class="form-group input-full" style="text-align:left">
-                                                @Html.LabelFor(model => model.xacnhanmatkhau, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.xacnhanmatkhau, htmlAttributes: new { @class = "control-label col-md-6" })
                                                 <div style="color:red;font-size:small;text-align:initial">
                                                     @Html.ValidationMessageFor(model => model.xacnhanmatkhau, "", new { @class = "text-danger" })
                                                 </div>
@@ -100,7 +104,7 @@
                                             </div>
 
                                             <div class="form-group input-full" style="text-align:left">
-                                                @Html.LabelFor(model => model.hoten, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.hoten, htmlAttributes: new { @class = "control-label col-md-6" })
                                                 <div style="color:red;font-size:small;text-align:initial">
                                                     @Html.ValidationMessageFor(model => model.hoten, "", new { @class = "text-danger" })
                                                 </div>
@@ -110,19 +114,23 @@
                                             </div>
 
                                             <div class="form-group input-full" style="text-align:left">
-                                                @Html.LabelFor(model => model.dienthoai, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.dienthoai, htmlAttributes: new { @class = "control-label col-md-6" })
                                                 <div style="color:red;font-size:small;text-align:initial">
                                                     @Html.ValidationMessageFor(model => model.dienthoai, "", new { @class = "text-danger" })
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <input class="input-validation-error input-full" data-val="true" data-val-length="Số điện thoại không hợp lệ" data-val-length-max="11" data-val-length-min="9" data-val-required=" Số điện thoại không được để trống. " htmlattributes="{ class = form-control }" id="dienthoai" name="dienthoai" type="text" onkeypress="return isNumberKey(event)" placeholder="Nhập số điện thoại">
+                                                    <input class="input-validation-error input-full" data-val="true" data-val-length="Số điện thoại không hợp lệ" data-val-length-max="11" data-val-length-min="10" data-val-required=" Số điện thoại không được để trống. " htmlattributes="{ class = form-control }" id="dienthoai" name="dienthoai" type="text" onkeypress="return isNumberKey(event)" placeholder="Nhập số điện thoại">
                                                 </div>
                                             </div>
 
                                             <div class="form-group" style="text-align:left">
-                                                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-6" })
+                                                @*<div style="color:red;font-size:small;text-align:initial">
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+        </div>*@
+
                                                 <div style="color:red;font-size:small;text-align:initial">
-                                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                                    @Html.ValidationSummary(true, "Email đã tồn tại", new { @class = "text-danger" })
                                                 </div>
                                                 <div class="col-md-10">
                                                     <input class="input-validation-error input-full" data-val="true" data-val-required=" Email không được để trống. " htmlattributes="{ class = form-control }" id="email" name="email" type="email" placeholder="Nhập email">
@@ -131,7 +139,7 @@
                                             </div>
 
                                             <div class="form-group input-full" style="text-align:left">
-                                                @Html.LabelFor(model => model.hinhanh, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.hinhanh, htmlAttributes: new { @class = "control-label col-md-6" })
                                                 <div style="color:red;font-size:small;text-align:initial">
                                                     @Html.ValidationMessageFor(model => model.hinhanh, "", new { @class = "text-danger" })
                                                 </div>
@@ -141,7 +149,7 @@
                                             </div>
 
                                             <div class="form-group input-full" style="text-align:left">
-                                                @Html.LabelFor(model => model.ngaysinh, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.ngaysinh, htmlAttributes: new { @class = "control-label col-md-6" })
                                                 <div style="color:red;font-size:small;text-align:initial">
                                                     @Html.ValidationMessageFor(model => model.ngaysinh, "", new { @class = "text-danger" })
                                                 </div>
@@ -153,7 +161,7 @@
                                             </div>
 
                                             <div class="form-group input-full" style="text-align:left">
-                                                @Html.LabelFor(model => model.diachi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.diachi, htmlAttributes: new { @class = "control-label col-md-6" })
                                                 <div style="color:red;font-size:small;text-align:initial">
                                                     @Html.ValidationMessageFor(model => model.diachi, "", new { @class = "text-danger" })
                                                 </div>
